@@ -3,35 +3,35 @@ const points=[
         name: "Point A",
         lan: 14.45437,
         lon: 75.91907,
-        addess: "X markets, 1st floor, near bus stop, Mangalore",
+        addess: "X area, 10st floor, near bus stop, Mangalore",
         contact: 1234567890
     },
     {
         name: "Point B",
         lan: 14.47509,
         lon: 75.92028,
-        addess: "X markets, 1st floor, near bus stop, Mangalore",
+        addess: "Y road, near food mart, Mangalore",
         contact: 1234567890
     },
     {
         name: "Point C",
         lan: 14.48501,
         lon: 75.90384,
-        addess: "X markets, 1st floor, near bus stop, Mangalore",
+        addess: "ABC markets, 1st cross, Mangalore",
         contact: 1234567890
     },
     {
         name: "Point D",
         lan: 14.45158,
         lon: 75.93433,
-        addess: "X markets, 1st floor, near bus stop, Mangalore",
+        addess: "# 1234 Jaya bagar davangere, Mangalore",
         contact: 1234567890
     },
     {
         name: "Point E",
         lan: 14.4515844,
         lon:  75.9343272,
-        addess: "X markets, 1st floor, near bus stop, Mangalore",
+        addess: "X markets, 1st floor, Vrinda nagar, Mangalore",
         contact: 1234567890
     },
 ]

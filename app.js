@@ -8,7 +8,8 @@ const port=3000;
 app.use(express.json());
 app.use(express.urlencoded({extended:false}));
 
-app.post('/callambulance',async (req,res)=>{
+//API
+app.get('/callambulance',async (req,res)=>{
     const {lat,lon}=req.body;
     const responce=await search(lat,lon);
     console.log('Request',req.body);
@@ -23,5 +24,5 @@ app.post('/callambulance',async (req,res)=>{
 // }
 
 app.listen(port,(req,res)=>{
-    console.log('Server has started on: 127.0.0.1');
+    console.log(`Server has started on: 127.0.0.1${port}`);
 });
