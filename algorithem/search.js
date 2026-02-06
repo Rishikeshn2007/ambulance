@@ -46,8 +46,8 @@ async function nearest(lan1,lon1,lat2,log2) {
     const r=data.routes[0];
 
     return {
-        distance: r.distance/1000,
-        duration: r.duration/3600
+        distance: (r.distance/1000),
+        duration: (r.duration/3600)
     }
 }
 
@@ -65,8 +65,8 @@ async function search(lan,lon)
     let min_time=Math.min(...duration);
     let point=duration.indexOf(min_time);
     return {
-        time: min_time,
-        dis: distance[point],
+        Time: min_time,
+        Distance: distance[point],
         details: points[point]
     };
 }
