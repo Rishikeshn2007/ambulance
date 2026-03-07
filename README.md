@@ -1,45 +1,110 @@
-# ambulance
+# Ambulance Nearest Dispatch API
 
-#Nearest Ambulance Finder API
+A small Node.js + Express service that finds the nearest ambulance point (from a fixed in-code list) to a user location.
 
-A Node.js + Express REST API that finds the nearest ambulance point based on real road travel time, using the OSRM routing service.
+The service compares travel duration and distance using the public [OSRM routing API](https://router.project-osrm.org).
 
-This API accepts latitude and longitude as input and returns the closest ambulance location with estimated distance and travel time.
+## Features
 
-#Features
+- `GET /callambulance` endpoint
+- Input validation for latitude/longitude query params
+- Computes route distance and travel time from user location to each point
+- Returns the nearest point by **minimum travel time**
 
-REST API built with Node.js & Express
+## Tech Stack
 
-Uses real road routes, not straight-line distance
+- Node.js (CommonJS)
+- Express 5
+- Nodemon (dev run)
+- OSRM public routing service
 
-Finds nearest ambulance by travel time
+## Project Structure
 
-Returns:
+```text
+.
+├── app.js                 # Express server + API route
+├── algorithem/
+│   └── search.js          # Routing calls + nearest-point selection logic
+├── package.json
+└── README.md
+```
 
-Nearest ambulance details
+## Prerequisites
 
-Estimated distance (km)
+- Node.js 18+ (or newer)
+- Internet access (required for calls to `router.project-osrm.org`)
 
-Estimated travel time (hours)
+## Installation
 
-JSON request & response format
+```bash
+npm install
+```
 
-#How It Works
+## Run
 
-Client sends latitude & longitude to the API
+```bash
+npm start
+```
 
-Server calculates routes from user location to all ambulance points using OSRM
+Server runs on:
 
-Compares travel durations
+```text
+http://127.0.0.1:3000
+```
 
-Returns the fastest reachable ambulance
+## API
 
-#Tech Stack
+### `GET /callambulance`
 
-Node.js
+Find the nearest ambulance point for a given location.
 
-Express.js
+#### Query Parameters
 
-OSRM (Open Source Routing Machine)
+- `lat` (required): latitude, number between `-90` and `90`
+- `lon` (required): longitude, number between `-180` and `180`
 
-JavaScript (ES6)
+#### Example Request
+
+```bash
+curl "http://127.0.0.1:3000/callambulance?lat=14.47526&lon=75.88586"
+```
+
+#### Success Response (200)
+
+```json
+{
+  "Time": 0.25,
+  "Distance": 12.4,
+  "details": {
+    "name": "Point C",
+    "lan": 14.48501,
+    "lon": 75.90384,
+    "addess": "ABC markets, 1st cross, Mangalore",
+    "contact": 1234567890
+  }
+}
+```
+
+- `Time` is in **hours**
+- `Distance` is in **kilometers**
+
+#### Error Responses
+
+- `400` if `lat`/`lon` are missing
+- `400` if `lat`/`lon` are invalid numbers
+- `400` if values are out of range
+- `500` if routing lookup fails
+
+## Notes
+
+- Ambulance points are hardcoded in `algorithem/search.js`.
+- Selection is based on shortest travel duration returned by OSRM.
+- Field names in current code use `lan` and `addess` (typos preserved from source data).
+- `npm start` uses `nodemon`; for production, run with `node app.js` or use a process manager.
+
+## Future Improvements
+
+- Move points data to a database
+- Add unit/integration tests
+- Add caching and retry logic for external routing calls
+- Add production-ready scripts and environment-based configuration
